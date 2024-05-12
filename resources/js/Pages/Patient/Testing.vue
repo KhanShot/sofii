@@ -44,18 +44,19 @@ function setTime() {
     ++data.seconds;
 }
 
-let sector = 1 * props.params.sectors;
-
+let sector = 24 * props.params.sectors;
+//24 + 4 = 96
 let all_dots = []
 let pressed_dots = []
+
+
 let items = [
     'red', 'white', 'blue' , 'green'
 ];
 
-const cx = 705, cy = 486, r = 490, x = 216.1, y = 92.7;
-
 
 function in_circle(cx, cy, x, y, rad) {
+
     return (x - cx) * (x - cx) +
         (y - cy) * (y - cy) < rad * rad ;
 }
@@ -68,10 +69,12 @@ function getOffset(el) {
         y: rect.top + window.scrollY
     };
 }
+
 watch(()=> data.seconds, () =>{
     if (data.seconds >= 4){
         data.left_eye = false
         data.start_dot = true
+        sector = 96 > 0
         if (sector > 0){
             let item = items[Math.floor(Math.random()*items.length)];
             const point = document.createElement("div");
@@ -85,21 +88,12 @@ watch(()=> data.seconds, () =>{
             let x = Math.random() * divWidth;
             let y = Math.random() * divHeight;
 
-
             if (data.seconds % 2){
                 const divCenter = document.getElementById('center_dot')
                 const center_dot = getOffset(divCenter)
 
                 let dist = in_circle(center_dot.x, center_dot.y, x, y, divHeight/2)
-                let res = {
-                    dist: 0,
-                    cx: center_dot.x,
-                    cy: center_dot.y,
-                    r: divHeight / 2,
-                    x: x,
-                    y: y,
-                    inside: dist,
-                }
+
 
                 if (!dist){
                     x = Math.random() * divWidth;
@@ -115,14 +109,14 @@ watch(()=> data.seconds, () =>{
                 }
                 point.style.left = `${x}px`;
                 point.style.top = `${y}px`;
-                console.log(res)
-                console.log(dist)
+
 
                 all_dots[sector] = [x, y]
 
                 divElement.appendChild(point)
 
                 sector--;
+
             }
             setTimeout(function() {
                 point.remove();
@@ -152,6 +146,7 @@ watch(()=> data.seconds, () =>{
         <div id="sector" class="relative flex box-border justify-center items-center h-screen bg-black rounded-full border border-l-white" style="width: 980px">
             <left-eye-close v-if="data.left_eye" ></left-eye-close>
             <div id="center_dot" class="bg-white p-1 rounded" v-if="data.start_dot"></div>
+
         </div>
     </div>
 </template>
