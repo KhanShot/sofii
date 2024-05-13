@@ -19,7 +19,7 @@ class ResultController extends Controller
 
         $result = collect($result)->transform(function ($item) use ($patient_id){
             return [
-                'eye' => $item->eye,
+                'eye' => $item->eye ?? '',
                 'patient_id' => $item->patient_id,
                 'id' => $item->id,
                 'all_dots' => unserialize($item->all_dots),
