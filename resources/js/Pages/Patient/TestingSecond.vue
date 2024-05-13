@@ -40,7 +40,7 @@ function setTime() {
     ++data.seconds;
 }
 
-let sector = 1 * props.params.sectors;
+let sector = 24 * props.params.sectors;
 
 let all_dots = []
 let pressed_dots = []
@@ -85,15 +85,7 @@ watch(()=> data.seconds, () =>{
                 const center_dot = getOffset(divCenter)
 
                 let dist = in_circle(center_dot.x, center_dot.y, x, y, divHeight/2)
-                let res = {
-                    dist: 0,
-                    cx: center_dot.x,
-                    cy: center_dot.y,
-                    r: divHeight / 2,
-                    x: x,
-                    y: y,
-                    inside: dist,
-                }
+
 
                 if (!dist){
                     console.log(`new x${x}`)
@@ -109,8 +101,7 @@ watch(()=> data.seconds, () =>{
                 }
                 point.style.left = `${x}px`;
                 point.style.top = `${y}px`;
-                console.log(res)
-                console.log(dist)
+
 
                 all_dots[sector] = [x, y]
 

@@ -33,8 +33,7 @@ window.onload = function (e) {
     let divElement = document.getElementById('sector')
     const divWidth = divElement.offsetWidth;
     const divHeight = divElement.offsetHeight;
-    console.log(divWidth)
-    console.log(divHeight)
+
 }
 
 
@@ -45,7 +44,8 @@ function setTime() {
 }
 
 let sector = 24 * props.params.sectors;
-//24 + 4 = 96
+console.log(sector)
+
 let all_dots = []
 let pressed_dots = []
 
@@ -74,7 +74,6 @@ watch(()=> data.seconds, () =>{
     if (data.seconds >= 4){
         data.left_eye = false
         data.start_dot = true
-        sector = 96 > 0
         if (sector > 0){
             let item = items[Math.floor(Math.random()*items.length)];
             const point = document.createElement("div");
@@ -93,8 +92,6 @@ watch(()=> data.seconds, () =>{
                 const center_dot = getOffset(divCenter)
 
                 let dist = in_circle(center_dot.x, center_dot.y, x, y, divHeight/2)
-
-
                 if (!dist){
                     x = Math.random() * divWidth;
                     y = Math.random() * divHeight;
